@@ -15,10 +15,6 @@ const Card = ({ d, refer }) => {
         <span>DATE OF BIRTH</span>
         {d.dob}
       </p>
-      <p>
-        <span>PASSWORD</span>
-        {d.password}
-      </p>
     </div>
   );
 };

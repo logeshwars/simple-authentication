@@ -1,16 +1,23 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import { useInfiniteQuery } from "react-query";
-import useAuth from "../hooks/useAuth";
 import { getData } from "../axios";
 import Card from "../components/Card";
+import { AuthContext } from "../contexts/MainContext";
 
 const Dashboard = () => {
-  const { data, isError, isLoading, fetchNextPage, hasNextPage } =
+  const [logged, setLogged, getToken] = useContext(AuthContext);
+  const { data, isError, isLoading, fetchNextPage, hasNextPage, error } =
     useInfiniteQuery(["users"], ({ pageParam = 1 }) => getData(pageParam), {
       getNextPageParam: (_lastPage, pages) => {
         return pages.length + 1;
       },
     });
+  if (isError) {
+    if (error.response.status === 401) {
+      getToken();
+      if (data?.pages.length < data?.pages[0].data.last_page) fetchNextPage();
+    }
+  }
   const observer = useRef();
   const lastElementRef = useCallback((node) => {
     if (isLoading) return;
@@ -31,8 +38,8 @@ const Dashboard = () => {
               <>
                 {data.pages.length === pageIndex + 1 &&
                 page.data.data.length === i + 1 &&
-                data.pages.length < page.data.last_page ? (
-                  <Card refer={lastElementRef} d={d} key={i} />
+                data.pages.length + 1 < page.data.last_page ? (
+                  <Card refer={lastElementRef} values={page} d={d} key={i} />
                 ) : (
                   <Card d={d} refer={null} key={i} />
                 )}
