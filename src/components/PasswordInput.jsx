@@ -8,7 +8,10 @@ function PasswordInput(props) {
   };
   return (
     <div className="form-input-container">
-      <label>{props?.label}</label>
+      <label>
+        {props?.label}
+        <span className="form-required">*</span>
+      </label>
       <div className="relative">
         <input {...props} className="form-input w-full pr-10" type={type} />
         <button className="form-eye" type="button" onClick={handleShow}>

@@ -6,19 +6,16 @@ import Inputs from "../components/Inputs";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import {
-  AuthContext,
-  LoadingContext,
-  NotificationContext,
-} from "../contexts/MainContext";
+import { LoadingContext, NotificationContext } from "../contexts/MainContext";
 import PasswordInput from "../components/PasswordInput";
 
 const Register = () => {
   const mutation = useMutation(registerRequest);
   const navigate = useNavigate();
-  const [logged, setLogged, getToken] = useContext(AuthContext);
   const setNotification = useContext(NotificationContext);
   const setLoading = useContext(LoadingContext);
+  const date = new Date();
+  date.setFullYear(date.getFullYear() - 10);
   const validationSchema = yup.object({
     userName: yup
       .string("Enter your Name")
@@ -28,8 +25,8 @@ const Register = () => {
     dob: yup
       .date()
       .required("Enter your date of birth")
-      .min(new Date("01-01-1950"))
-      .max(new Date()),
+      .min(new Date("01-01-1950"), "DOB must be greater than 01-01-1950")
+      .max(date, `DOB must be less than ${date.toISOString().split("T")[0]}`),
     email: yup
       .string("Enter your email")
       .email("Enter a valid email")
@@ -37,9 +34,11 @@ const Register = () => {
     password: yup
       .string("Enter your password")
       .min(8, "Password should be of minimum 8 characters length")
+      .max(20, "password should be of maximum 20 characters length")
       .required("Password is required"),
     confirm_password: yup
       .string("Enter the confirm password")
+      .required("Confirm password is required")
       .oneOf([yup.ref("password"), null], "Passwords must match"),
   });
   const formik = useFormik({
@@ -68,17 +67,16 @@ const Register = () => {
               data.data.message === "User created successfully" &&
               data.status === 201
             ) {
-              setLoading(false);
               setNotification(data.data.message);
               navigate("/login", { replace: true });
             }
           },
           onError: (error, variables, context) => {
-            setLoading(false);
             setNotification(error.response.data.message);
           },
         }
       );
+      setLoading(false);
     },
   });
   return (
@@ -122,7 +120,7 @@ const Register = () => {
             name="dob"
             type="date"
             min="1922-01-01"
-            max={new Date().toISOString().split("T")[0]}
+            max={date.toISOString().split("T")[0]}
             placeholder="Enter your DOB"
             label="Birth Date"
             onBlur={formik.handleBlur}
@@ -139,6 +137,7 @@ const Register = () => {
             istouched={formik.touched.password}
             error={formik.errors.password}
             minLength={8}
+            maxLength={20}
           />
           <PasswordInput
             onChange={formik.handleChange}
@@ -150,6 +149,7 @@ const Register = () => {
             istouched={formik.touched.confirm_password}
             error={formik.errors.confirm_password}
             minLength={8}
+            maxLength={20}
           />
           <button
             className="login-btn"
@@ -160,8 +160,8 @@ const Register = () => {
           </button>
         </form>
         <div className="text-center text-base text-gray-400 ">
-          Already have an account
-          <Link to="/login" className="text-black underline">
+          Already have an account!
+          <Link to="/login" className=" underline text-blue-700">
             Log in
           </Link>
         </div>

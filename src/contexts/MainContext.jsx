@@ -10,7 +10,7 @@ export const NotificationContext = createContext();
 export const UserProvider = ({ children }) => {
   const [logged, setLogged] = useState(false);
   const [notification, setNotification] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const notify = () => toast(notification);
   const getToken = () => {
@@ -30,6 +30,9 @@ export const UserProvider = ({ children }) => {
       });
     return code;
   };
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => setLoading(false), 1000);
+  }, []);
   useEffect(() => {
     getToken();
   }, []);

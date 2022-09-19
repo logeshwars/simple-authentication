@@ -8,7 +8,6 @@ import {
   AuthContext,
   LoadingContext,
   NotificationContext,
-  UserContext,
 } from "../contexts/MainContext";
 import login from "../lottiefiles/login.json";
 import { useFormik } from "formik";
@@ -17,7 +16,6 @@ import PasswordInput from "../components/PasswordInput";
 const Login = () => {
   const mutation = useMutation(loginRequest);
   const [logged, setLogged] = useContext(AuthContext);
-  const [user, setUser] = useContext(UserContext);
   const navigate = useNavigate();
   const [keepLogged, setKeepLogged] = useState(false);
   useEffect(() => {
@@ -107,7 +105,7 @@ const Login = () => {
           />
 
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <label
                 className={`custom-check-box ${
                   keepLogged ? "border-primary" : undefined
@@ -124,7 +122,7 @@ const Login = () => {
                 ></span>
               </label>
               <label className="text-gray-500 text-sm">keep me logged in</label>
-            </div>
+            </div> */}
             <Link to="*" className="text-primary">
               Forget password!
             </Link>
@@ -140,7 +138,7 @@ const Login = () => {
         </form>
         <div className="text-center text-base text-gray-400 ">
           Don't have an account?
-          <Link to="/register" className="text-black underline">
+          <Link to="/register" className="text-blue-700 underline">
             SignUp
           </Link>
         </div>
