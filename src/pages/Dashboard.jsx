@@ -7,7 +7,7 @@ import { AuthContext } from "../contexts/MainContext";
 const Dashboard = () => {
   const [logged, setLogged, getToken] = useContext(AuthContext);
   const { data, isError, isLoading, fetchNextPage, hasNextPage, error } =
-    useInfiniteQuery(["users"], ({ pageParam = 1 }) => getData(pageParam), {
+    useInfiniteQuery(["users"], ({ pageParam = 0 }) => getData(pageParam), {
       getNextPageParam: (_lastPage, pages) => {
         return pages.length + 1;
       },
