@@ -2,7 +2,7 @@
   "name": "task1",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://simple-authentication0.herokuapp.com/",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "13.3.0",
@@ -25,7 +25,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint './src/'",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "eslintConfig": {
     "extends": [
@@ -40,15 +43,17 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",f
+      "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
     ]
   },
   "devDependencies": {
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
+    "prop-types": "^15.8.1",
     "tailwindcss": "^3.1.8"
-  },
-  "engines": {
-    "node": ">=16.0.0"
   }
 }

@@ -1,110 +1,88 @@
+/** @format */
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @tailwind base;
 @tailwind components;
-@layer components{
-  .center-elm
-  { @apply flex h-screen w-screen items-center justify-center gap-4}
-  .form-container
-  {
-    @apply p-5 rounded-lg  w-[400px] flex flex-col gap-3 border bg-white h-full lg:h-fit
-  } 
-  .form-input-container
-  {
-    @apply flex flex-col gap-1
-    my-1 relative
-  }
-  .form-input-container label
-  {
-    @apply font-medium
+@layer components {
+	.center-elm {
+		@apply flex min-h-screen w-screen items-center justify-center gap-4;
+	}
+	.form-container {
+		@apply p-5 rounded-lg w-full md:w-[25rem]  lg:w-[25rem] flex flex-col gap-3 border bg-white h-full md:h-fit lg:h-fit justify-center;
+	}
+	.form-input-container {
+		@apply flex flex-col gap-1
+    my-1 relative;
+	}
+	.form-input-container label {
+		@apply font-medium;
+	}
 
-  }
-
-  .form-input
-  {
-    @apply border
+	.form-input {
+		@apply border
     rounded-md
     py-2
     px-2
     focus:outline-indigo-400 
     text-sm
-    w-full
-  
-  }
-  .form-required
-  {
-    @apply text-red-500 ml-1 relative top-[3px] 
-  }
-  .form-eye
-  {
-    @apply absolute bottom-3 right-3
-  }
-  .input-error
-  {
-    @apply text-red-500 text-xs
-  }
-  .login-btn
-  {
-    @apply bg-primary w-full text-white py-2 rounded-md hover:bg-secondary disabled:bg-[#82a3f4] disabled:cursor-not-allowed
-  }
-  .custom-check-box input
-  {
-    @apply absolute w-5 h-5 sr-only z-10 
-  }
-  .custom-check-box
-  {
-    @apply bg-slate-100 w-5 h-5 rounded border   shadow  cursor-pointer
-  }
-  .custom-check-box span
-  {
-    @apply absolute mt-1 after:absolute  after:pointer-events-none after:border-l-4 after:-rotate-45 after:border-b-4 after:rounded-sm after:w-4 after:h-2  after:content-[''] 
-  }
-  .card-container
-  {
-    @apply flex gap-1 flex-wrap justify-center
-  }
-  .card
-  {
-    @apply bg-white p-3 shadow-sm  w-11/12 lg:w-96 rounded-md flex flex-col gap-3  border border-white hover:border-gray-400 hover:cursor-pointer 
-  }
-  .card-title
-  {
-    @apply text-base font-extrabold text-center uppercase mb-3 flex justify-start gap-2 items-center
-  }
-  .card p {
-    @apply flex gap-2 w-full relative flex-wrap text-sm break-words justify-between border border-white border-b-slate-100
-  }
-  .card-email
-  {
-    @apply text-blue-500
-  }
-  .card-label
-  {
-    @apply text-gray-500
-  }
-  .navbar
-  {
-
-    @apply flex justify-between items-center shadow px-5 py-2 mb-2
-  }
-  .navbar-logo
-  {
-    @apply flex items-center justify-center gap-2
-  }
-  .navbar-logo img
-  {
-    @apply w-9
-  }
-  .navbar-logo h3
-  {
-    @apply text-blue-600 font-extrabold text-lg  italic
-  }
-  .navbar-menu
-  {
-    @apply flex items-center justify-between 
-  }
-  .navbar-link
-  {
-    @apply text-gray-600
-  }
+    w-full;
+	}
+	.form-required {
+		@apply text-red-500 ml-1 relative top-[3px];
+	}
+	.form-eye {
+		@apply absolute bottom-3 right-3;
+	}
+	.input-error {
+		@apply text-red-500 text-xs;
+	}
+	.login-btn {
+		@apply bg-primary w-full text-white py-2 rounded-md hover:bg-secondary disabled:bg-[#82a3f4] disabled:cursor-not-allowed;
+	}
+	.custom-check-box input {
+		@apply absolute w-5 h-5 sr-only z-10;
+	}
+	.custom-check-box {
+		@apply bg-slate-100 w-5 h-5 rounded border   shadow  cursor-pointer;
+	}
+	.custom-check-box span {
+		@apply absolute mt-1 after:absolute  after:pointer-events-none after:border-l-4 after:-rotate-45 after:border-b-4 after:rounded-sm after:w-4 after:h-2  after:content-[''];
+	}
+	.card-container {
+		@apply flex gap-1 flex-wrap justify-center;
+	}
+	.card {
+		@apply bg-white p-3 shadow-sm  w-11/12 lg:w-96 rounded-md flex flex-col gap-3  border border-white hover:border-gray-400 hover:cursor-pointer;
+	}
+	.card-title {
+		@apply text-base font-extrabold text-center uppercase mb-3 flex justify-start gap-2 items-center;
+	}
+	.card p {
+		@apply flex gap-2 w-full relative flex-wrap text-sm break-words justify-between border border-white border-b-slate-100;
+	}
+	.card-email {
+		@apply text-blue-500;
+	}
+	.card-label {
+		@apply text-gray-500;
+	}
+	.navbar {
+		@apply flex justify-between items-center shadow px-5 py-2 mb-2;
+	}
+	.navbar-logo {
+		@apply flex items-center justify-center gap-2;
+	}
+	.navbar-logo img {
+		@apply w-9;
+	}
+	.navbar-logo h3 {
+		@apply text-blue-600 font-extrabold text-lg  italic;
+	}
+	.navbar-menu {
+		@apply flex items-center justify-between;
+	}
+	.navbar-link {
+		@apply text-gray-600;
+	}
 }
 @tailwind utilities;
