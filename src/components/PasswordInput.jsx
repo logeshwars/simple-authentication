@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import {
@@ -7,7 +5,6 @@ import {
 } from 'react-icons/bs';
 const PasswordInput = (props) => {
 	const [type, setType] = useState('password');
-	console.log(typeof props.istouched);
 	const handleShow = () => {
 		if (type === 'password') {
 			setType('text');

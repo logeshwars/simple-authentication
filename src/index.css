@@ -5,7 +5,7 @@
 @tailwind components;
 @layer components {
 	.center-elm {
-		@apply flex min-h-screen w-screen items-center justify-center gap-4;
+		@apply flex min-h-screen h-1 w-screen items-center justify-center gap-4;
 	}
 	.form-container {
 		@apply p-5 rounded-lg w-full md:w-[25rem]  lg:w-[25rem] flex flex-col gap-3 border bg-white h-full md:h-fit lg:h-fit justify-center;

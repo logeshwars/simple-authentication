@@ -1,5 +1,3 @@
-/** @format */
-
 import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import PropTypes from 'prop-types';

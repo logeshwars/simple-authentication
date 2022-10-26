@@ -65,4 +65,4 @@ export const UserProvider = ({ children }) => {
 	);
 };
 
-UserProvider.propTypes = { children: PropTypes.node };
+UserProvider.propTypes = { children: PropTypes.func };
