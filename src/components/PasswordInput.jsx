@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import {
 	BsEyeFill, BsEyeSlashFill
 } from 'react-icons/bs';
@@ -29,7 +29,7 @@ const PasswordInput = (props) => {
 	);
 };
 
-PasswordInput.propTypes={
+PasswordInput.propTypes = {
 	onChange: PropTypes.func,
 	name: PropTypes.string,
 	value: PropTypes.string,

@@ -10,17 +10,9 @@ const Card = ({
 			<FaUserCircle className='text-blue-400 text-xl' />
 			{user.userName}
 		</h1>
-		<p>
-			<span className='card-label'>ID</span>:{user.id}
-		</p>
-		<p>
-			<span className='card-label'>EMAIL</span>
-			<span className='card-email'>{user.email}</span>
-		</p>
-		<p>
-			<span className='card-label'>DATE OF BIRTH</span>
-			{formatDate(user.dob)}
-		</p>
+		<Label label='ID' value={user.id} />
+		<Label label='EMAIL' value={user.id} />
+		<Label label='DATE OF BIRTH' value={formatDate(user.dob)} />
 	</div>
 );
 
@@ -31,7 +23,20 @@ Card.propTypes = {
 		email: PropTypes.string,
 		dob: PropTypes.string
 	},
-	refer: PropTypes.element
+	refer: PropTypes.func
 };
 
+const Label = ({
+	label, value
+}) => (
+	<p>
+		<span className='card-label'>{label}</span>
+		<span className={label === 'Email' ? 'card-email' : undefined}>{value}</span>
+	</p>
+);
+
+Label.propTypes = {
+	label: PropTypes.string,
+	value: PropTypes.string
+};
 export default Card;

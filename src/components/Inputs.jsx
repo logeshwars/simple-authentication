@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 const Inputs = (props) => (
 	<div className='form-input-container'>
 		<label>
@@ -10,7 +10,7 @@ const Inputs = (props) => (
 		{props.istouched && <p className='input-error'>{props.error}</p>}
 	</div>
 );
-Inputs.propTypes={
+Inputs.propTypes = {
 	onChange: PropTypes.func,
 	name: PropTypes.string,
 	value: PropTypes.string,

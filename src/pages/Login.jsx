@@ -1,5 +1,3 @@
-/** @format */
-
 import React, {
 	useContext, useState
 } from 'react';
@@ -14,17 +12,24 @@ import {
 } from '../contexts/MainContext';
 import lottieLogin from '../lottiefiles/login.json';
 import PasswordInput from '../components/PasswordInput';
-import login from '../functions/login';
+import constants from '../constants';
+import { MakeRequest } from '../axios';
 const Login = () => {
-	const [, setLogged] = useContext(AuthContext);
+	const { 1: setLogged } = useContext(AuthContext);
 	const [keepLogged, setKeepLogged] = useState(false);
 	const setNotification = useContext(NotificationContext);
 	const setLoading = useContext(LoadingContext);
+
+	const fieldConst = {
+		passwordMinLength: 8,
+		passwordMaxLength: 20
+	};
 	const validationSchema = yup.object({
 		email: yup.string('Enter your email').email('Enter a valid email').required('Email is required'),
 		password: yup
 			.string('Enter your password')
-			.min(8, 'Password should be of minimum 8 characters length')
+			.min(fieldConst.passwordMinLength, `Password should be of minimum ${ fieldConst.passwordMinLength } characters length`)
+			.max(fieldConst.passwordMaxLength, `Password should be of maximum ${ fieldConst.passwordMaxLength }  characters length`)
 			.required('Password is required')
 	});
 	const formik = useFormik({
@@ -35,7 +40,10 @@ const Login = () => {
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			setLoading(true);
-			login(values, setLogged, setNotification);
+			MakeRequest(constants.resConfig.Login, values ).then(([log, msg]) => {
+				setLogged(log);
+				setNotification(msg);
+			});
 			setLoading(false);
 		}
 	});
@@ -75,7 +83,6 @@ const Login = () => {
 						error={formik.errors.password}
 						onBlur={formik.handleBlur}
 					/>
-
 					<div className='flex items-center justify-between'>
 						<div className='flex items-center gap-2'>
 							<label className={`custom-check-box ${ keepLogged ? 'border-primary' : undefined }`}>
@@ -95,7 +102,7 @@ const Login = () => {
 				</form>
 				<div className='text-center text-base text-gray-400 '>
 					Don&apos;t have an account?
-					<Link to='/register' className='text-blue-700 underline'>
+					<Link to={constants.path.Register} className='text-blue-700 underline'>
 						SignUp
 					</Link>
 				</div>

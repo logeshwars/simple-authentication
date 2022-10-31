@@ -4,24 +4,31 @@ import React, {
 	useCallback, useContext, useRef
 } from 'react';
 import { useInfiniteQuery } from 'react-query';
-import { sendRequest } from '../axios';
+import { MakeRequest } from '../axios';
 import Card from '../components/Card';
+import constants from '../constants';
 import request from '../constants/request';
 import { AuthContext } from '../contexts/MainContext';
 
 const Dashboard = () => {
-	const [, , getToken] = useContext(AuthContext);
+	const { 2: getToken } = useContext(AuthContext);
+	const pageInc = 1;
+	const firstIndex = 0;
 	const {
 		data, isError, isLoading, fetchNextPage, hasNextPage, error
 	} = useInfiniteQuery(
 		['users'],
-		({ pageParam = request.DefaultPage }) => sendRequest(request.Get, request.User, `?${ request.Limit }=${ request.DefaultPageLimit }&${ request.Page }=${ pageParam }`),
-		{ getNextPageParam: (_lastPage, pages) => pages.length + 1 }
+		({ pageParam = request.DefaultPage }) => {
+			const config = constants.resConfig.User;
+			config.query = `?${ request.Limit }=${ request.DefaultPageLimit }&${ request.Page }=${ pageParam }`;
+			return MakeRequest(config);
+		},
+		{ getNextPageParam: (_lastPage, pages) => pages.length + pageInc }
 	);
 	if (isError) {
-		if (error.response.status === 401) {
+		if (error.response.status === constants.code.Unauthorized) {
 			getToken();
-			if (data?.pages.length < data?.pages[0].data.last_page) {
+			if (data?.pages.length < data?.pages[firstIndex].data.last_page) {
 				fetchNextPage();
 			}
 		}
@@ -35,23 +42,23 @@ const Dashboard = () => {
 			observer.current.disconnect();
 		}
 		observer.current = new IntersectionObserver((entries) => {
-			if (entries[0].isIntersecting && hasNextPage) {
+			if (entries[firstIndex].isIntersecting && hasNextPage) {
 				fetchNextPage();
 			}
 		});
 		if (node) {
 			observer.current.observe(node);
 		}
-	});
+	}, [isLoading, hasNextPage, fetchNextPage]);
 	return (
 		<div className='dashboard'>
-			{!isLoading && !isError && (
+			{(!isLoading && !isError) && (
 				<div className='card-container'>
-					{data.pages.map((page, pageIndex) => page.data.data.map((user, index) => (
+					{data.pages.map((page, pageIndex) => page.data.map((user, index) => (
 						<>
-							{data.pages.length === pageIndex + 1 &&
-								page.data.data.length === index + 1 &&
-								data.pages.length + 1 < page.data.last_page ? (
+							{(data.pages.length === pageIndex + pageInc &&
+								page.data.length === index + pageInc &&
+								data.pages.length + pageInc < page.last_page) ? (
 									<Card refer={lastElementRef} values={page} user={user} key={index} />
 								) : (
 									<Card user={user} refer={null} key={index} />

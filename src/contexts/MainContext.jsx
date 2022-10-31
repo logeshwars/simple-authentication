@@ -1,50 +1,63 @@
-/** @format */
-
 import React, {
-	createContext, useEffect, useState
+	createContext, useCallback, useEffect, useState
 } from 'react';
-import { sendRequest } from '../axios';
 import {
 	ToastContainer, toast
 } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../components/Loading';
 import { useNavigate } from 'react-router-dom';
-import getToken from '../functions/getToken';
 import PropTypes from 'prop-types';
-import request from '../constants/request';
+import { MakeRequest } from '../axios';
+import constants from '../constants';
 export const AuthContext = createContext();
 export const UserContext = createContext();
 export const LoadingContext = createContext();
 export const NotificationContext = createContext();
 export const UserProvider = ({ children }) => {
+	const config = constants.resConfig;
 	const [logged, setLogged] = useState(false);
 	const [notification, setNotification] = useState('');
 	const [loading, setLoading] = useState(true);
 	const [user, setUser] = useState(null);
-	const notify = () => toast(notification);
-
 	const navigate = useNavigate();
+	const getToken =useCallback(() => {
+		setLoading(true);
+		MakeRequest(config.Token).then(([log, msg]) => {
+			setLogged(log);
+			setNotification(msg);
+		});
+		setLoading(false);
+	}, [config]);
+
 	useEffect(() => {
-		setLogged(getToken());
-	}, []);
+		getToken();
+	}, [getToken]);
+
 	useEffect(() => {
 		if (logged) {
 			navigate('/', { replace: true });
 		}
 	}, [logged, navigate]);
+
 	useEffect(() => {
-		setTimeout(() => setLoading(false), 1000);
-	}, []);
+		setLoading(true);
+		MakeRequest(config.GetCurrentUser).then((user) => {
+			setUser(user.data);
+			if (Array.isArray(user)) {
+				setNotification(config.User.error);
+			}
+		});
+		setLoading(false);
+	}, [logged, config]);
+
 	useEffect(() => {
-		sendRequest(request.Get, request.User, request.GetUser).then((res) => setUser(res.data.data));
-	}, [logged]);
-	useEffect(() => {
-		if (!notification) {
-			notify();
+		if (notification) {
+			toast.info(notification);
 			setNotification('');
 		}
-	}, [notification, notify]);
+	}, [notification]);
+
 	return (
 		<UserContext.Provider value={[user, setUser]}>
 			<NotificationContext.Provider value={setNotification}>
@@ -55,7 +68,7 @@ export const UserProvider = ({ children }) => {
 						) : (
 							<>
 								{children}
-								<ToastContainer />
+								<ToastContainer autoClose={1000} limit={1}/>
 							</>
 						)}
 					</AuthContext.Provider>

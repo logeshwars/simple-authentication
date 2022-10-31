@@ -6,7 +6,7 @@ const formatDate = (date) => {
 		weekday: 'long',
 		year: 'numeric',
 		month: 'long',
-		day: 'numeric',
+		day: 'numeric'
 	};
 	return date.toLocaleDateString('en-In', options);
 };
