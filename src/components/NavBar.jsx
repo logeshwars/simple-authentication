@@ -5,7 +5,7 @@ import { RiLogoutCircleRLine } from 'react-icons/ri';
 import { MakeRequest } from '../axios';
 import constants from '../constants';
 const NavBar = () => {
-	const [, setLogged] = useContext(MainContext.AuthContext);
+	const { 1: setLogged } = useContext(MainContext.AuthContext);
 	const [user, setUser] = useContext(MainContext.UserContext);
 	const handleLogout = () => {
 		MakeRequest(constants.resConfig.Logout).then(([res]) => {
