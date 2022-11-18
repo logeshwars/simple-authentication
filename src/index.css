@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@tailwind base;
+@tailwind components;
+@layer components {
+	.center-elm {
+		@apply flex min-h-screen h-1 w-screen items-center justify-center gap-4;
+	}
+	.form-container {
+		@apply p-5 rounded-lg w-full md:w-[25rem]  lg:w-[25rem] flex flex-col gap-3 border bg-white h-full md:h-fit lg:h-fit justify-center;
+	}
+	.form-input-container {
+		@apply flex flex-col gap-1
+    my-1 relative;
+	}
+	.form-input-container label {
+		@apply font-medium;
+	}
+
+	.form-input {
+		@apply border
+    rounded-sm
+    py-2
+    px-2
+    focus:outline-indigo-400 
+    text-sm
+    w-full;
+	}
+	.form-required {
+		@apply text-red-500 ml-1 relative top-[3px];
+	}
+	.form-eye {
+		@apply absolute bottom-3 right-3;
+	}
+	.input-error {
+		@apply text-red-500 text-xs;
+	}
+	.login-btn {
+		@apply bg-primary w-full text-white py-2 rounded-sm hover:bg-secondary disabled:bg-[#82a3f4] disabled:cursor-not-allowed;
+	}
+	.custom-check-box input {
+		@apply absolute w-5 h-5 sr-only z-10;
+	}
+	.custom-check-box {
+		@apply bg-slate-100 w-5 h-5 rounded border   shadow  cursor-pointer;
+	}
+	.custom-check-box span {
+		@apply absolute mt-1 after:absolute  after:pointer-events-none after:border-l-4 after:-rotate-45 after:border-b-4 after:rounded-sm after:w-4 after:h-2  after:content-[''];
+	}
+	.card-container {
+		@apply flex gap-1 flex-wrap justify-center;
+	}
+	.card {
+		@apply bg-white p-3 shadow-sm  w-11/12 lg:w-96 rounded-md flex flex-col gap-3  border border-white hover:border-gray-400 hover:cursor-pointer;
+	}
+	.card-title {
+		@apply text-base font-extrabold text-center uppercase flex justify-start gap-2 items-center;
+	}
+	.card p {
+		@apply flex gap-2 w-full relative flex-wrap text-sm break-words justify-between border border-white border-b-slate-100;
+	}
+	.card-email {
+		@apply text-blue-500;
+	}
+	.card-label {
+		@apply text-gray-500;
+	}
+	.navbar {
+		@apply flex justify-between items-center shadow px-5 py-2 mb-2 bg-white;
+	}
+	.navbar-logo {
+		@apply flex items-center justify-center gap-2;
+	}
+	.navbar-logo img {
+		@apply w-9;
+	}
+	.navbar-logo h3 {
+		@apply text-blue-600 font-extrabold text-lg  italic;
+	}
+	.navbar-menu {
+		@apply flex items-center gap-3;
+	}
+	.navbar-link {
+		@apply text-gray-600;
+	}
+	.nav-items-hover
+	{
+		@apply hover:bg-slate-200 hover:cursor-pointer;
+	}
+	.loading-container {
+		@apply flex justify-center items-center w-full h-full absolute top-0 right-0 bg-slate-100 z-10;
+	}
+	.user-container
+	{
+		@apply  px-4 py-2 border  shadow rounded-full flex gap-1 items-center nav-items-hover;
+	}
+    .icons
+	{
+		@apply text-2xl;
+	}
+	.nav-button
+	{
+       @apply icons shadow text-primary p-2 border rounded-full bg-white nav-items-hover;
+	}
+	.createuser-container
+	{
+		@apply min-w-full min-h-[90vh] h-1 flex items-center justify-center;
+	}
+	.createuser-card
+	{
+		@apply bg-white min-h-full min-w-full rounded-md p-3 shadow flex flex-col gap-5; 
+	}
+	.createuser-form
+	{
+		@apply flex flex-col gap-3 border border-gray-200 p-4 rounded-sm items-center;
+	}
+	.createuser-form-components
+	{
+		@apply flex flex-col sm:flex-row w-full sm:w-9/12 justify-between; 
+	}
+	.createuser-form-components .form-input-container
+	{
+		@apply w-full sm:w-[45%]
+	}
+	.card-header
+	{
+		@apply flex items-center justify-between h-[2rem];
+	}
+	.card-deletebtn
+	{
+		@apply text-red-400 text-xl hover:text-red-600;
+	}
+
+}
+@tailwind utilities;
