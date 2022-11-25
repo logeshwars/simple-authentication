@@ -1,15 +1,11 @@
-import React, {
-	createContext, useCallback, useEffect, useLayoutEffect, useState
-} from 'react';
-import {
-	ToastContainer, toast
-} from 'react-toastify';
+import React, { createContext, useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
 import { MakeRequest } from '../axios';
 import constants from '../constants';
 import useSession from '../hooks/useSession';
-import Loading from "../components/Loading";
+import Loading from '../components/Loading';
 export const AuthContext = createContext();
 export const UserContext = createContext();
 export const LoadingContext = createContext();
@@ -18,10 +14,10 @@ export const UserProvider = ({ children }) => {
 	const { resConfig } = constants;
 	const [logged, setLogged] = useState(false);
 	const [notification, setNotification] = useState('');
-	const [user, setUser, removeUser] = useSession("user");
+	const [user, setUser, removeUser] = useSession('user');
 	const [loading, setLoading] = useState(false);
 
-	const getToken =useCallback(async () => {
+	const getToken = useCallback(async () => {
 		setLoading(true);
 		await MakeRequest(resConfig.Token).then(([log, msg]) => {
 			if (!log) {
@@ -40,15 +36,14 @@ export const UserProvider = ({ children }) => {
 	const getUser = useCallback(async () => {
 		setLoading(true);
 		await MakeRequest(resConfig.GetCurrentUser).then((userData) => {
-			if (JSON.stringify(user)!== JSON.stringify(userData)) {
+			if (JSON.stringify(user) !== JSON.stringify(userData)) {
 				setUser(userData.data);
 			}
 		});
 		setLoading(false);
 	}, [resConfig, setUser]);
 
-
-	useEffect( () => {
+	useEffect(() => {
 		if (logged) {
 			getUser();
 		}
@@ -66,11 +61,14 @@ export const UserProvider = ({ children }) => {
 			<NotificationContext.Provider value={setNotification}>
 				<AuthContext.Provider value={[logged, setLogged, getToken]}>
 					<LoadingContext.Provider value={setLoading}>
-						{loading ? <Loading/> :<>
-							{children}
-							<ToastContainer autoClose={1000} limit={1}/>
-						</>
-						}
+						{loading ? (
+							<Loading />
+						) : (
+							<>
+								{children}
+								<ToastContainer autoClose={1000} limit={1} />
+							</>
+						)}
 					</LoadingContext.Provider>
 				</AuthContext.Provider>
 			</NotificationContext.Provider>

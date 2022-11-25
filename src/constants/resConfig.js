@@ -25,13 +25,12 @@ const resConfig = {
 	User: {
 		reqType: request.Get,
 		subDir: request.User,
-		query: "",
+		query: '',
 		resType: request.Data,
 		code: code.Accepted,
 		msg: messages.userFound,
 		success: null,
 		error: null
-
 	},
 	GetCurrentUser: {
 		reqType: request.Get,
@@ -52,7 +51,6 @@ const resConfig = {
 		msg: messages.TokenCreatedSuccessfully,
 		success: null,
 		error: messages.SessionExp
-
 	},
 	Logout: {
 		reqType: request.Post,
@@ -72,6 +70,17 @@ const resConfig = {
 		code: code.OK,
 		msg: messages.UserDeleted,
 		success: messages.UserDeleted,
+		error: messages.UserNotFound
+	},
+	GetCurrentUserFullDetails:
+	{
+		reqType: request.Get,
+		subDir: request.User,
+		query: request.UserFullDetails,
+		resType: request.Data,
+		code: code.OK,
+		msg: messages.userFound,
+		success: null,
 		error: messages.UserNotFound
 	}
 };

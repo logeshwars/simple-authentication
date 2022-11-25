@@ -1,23 +1,17 @@
-import React, {
-	useContext, useEffect
-} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/MainContext';
+import React from 'react';
 import PropsType from 'prop-types';
-import Loading from './Loading';
+import useAuth from '../hooks/useAuth';
+import { Navigate, useLocation } from 'react-router-dom';
 import constants from '../constants';
 
-const Protector = ({ Component }) => {
-	const [logged] = useContext(AuthContext);
-	const navigate = useNavigate();
-	useEffect(() => {
-		if (!logged) {
-			navigate(constants.path.Login);
-		}
-	}, [logged, navigate]);
-	return <div>{logged ? <Component /> : <Loading />}</div>;
+const Protector = ({ Component, allowedRoles }) => {
+	const {path} = constants;
+	const [user] = useAuth();
+	const location = useLocation();
+
+	return <div>{user && allowedRoles.includes(user.role) ? <Component /> : <Navigate to={path.Login} replace state={{from: location}} />}</div>;
 };
 
-Protector.propTypes = { Component: PropsType.func };
+Protector.propTypes = { Component: PropsType.func, allowedRoles: PropsType.array };
 
 export default Protector;

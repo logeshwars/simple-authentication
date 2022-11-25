@@ -1,13 +1,9 @@
 import React, { useContext } from 'react';
-import {
-	Link, useNavigate
-} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MakeRequest } from '../axios/';
 import Inputs from '../components/Inputs';
 import { useFormik } from 'formik';
-import {
-	LoadingContext, NotificationContext
-} from '../contexts/MainContext';
+import { LoadingContext, NotificationContext } from '../contexts/MainContext';
 import PasswordInput from '../components/PasswordInput';
 import constants from '../constants';
 import FormButton from '../components/FormButton';
@@ -87,8 +83,7 @@ const Register = () => {
 						label='Birth Date'
 						istouched={formik.touched.dob}
 						error={formik.errors.dob}
-						required={true}
-					>
+						required={true}>
 						<Inputs
 							onChange={formik.handleChange}
 							value={formik.values.dob}
@@ -105,8 +100,7 @@ const Register = () => {
 						label='Password'
 						istouched={formik.touched.password}
 						error={formik.errors.password}
-						required={true}
-					>
+						required={true}>
 						<PasswordInput
 							onChange={formik.handleChange}
 							name='password'
@@ -122,8 +116,7 @@ const Register = () => {
 						label='Confirm password'
 						istouched={formik.touched.confirmPassword}
 						error={formik.errors.confirmPassword}
-						required={true}
-					>
+						required={true}>
 						<PasswordInput
 							onChange={formik.handleChange}
 							name='confirmPassword'

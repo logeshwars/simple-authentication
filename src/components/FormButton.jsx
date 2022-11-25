@@ -1,12 +1,7 @@
 import React from 'react';
 import PropsTypes from 'prop-types';
-const FormButton = ({
-	text, isValid, dirty
-}) => (
-	<button
-		className='login-btn'
-		type='submit'
-		disabled={!(isValid && dirty)}>
+const FormButton = ({ text, isValid, dirty }) => (
+	<button className='login-btn' type='submit' disabled={!(isValid && dirty)}>
 		{text}
 	</button>
 );

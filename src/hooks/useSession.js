@@ -1,6 +1,4 @@
-import {
-	useCallback, useEffect, useState
-} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const useSession = (key, defaultValue) => {
 	const [value, setValue] = useState(() => {
@@ -10,7 +8,6 @@ const useSession = (key, defaultValue) => {
 		}
 
 		return defaultValue;
-
 	});
 
 	useEffect(() => {
@@ -25,8 +22,6 @@ const useSession = (key, defaultValue) => {
 	}, []);
 
 	return [value, setValue, remove];
-
-
 };
 
 export default useSession;

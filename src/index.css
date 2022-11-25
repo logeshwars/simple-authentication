@@ -2,11 +2,14 @@
 @tailwind base;
 @tailwind components;
 @layer components {
+	.app{
+		@apply dark:bg-darkPrimary dark:text-white
+	}
 	.center-elm {
 		@apply flex min-h-screen h-1 w-screen items-center justify-center gap-4;
 	}
 	.form-container {
-		@apply p-5 rounded-lg w-full md:w-[25rem]  lg:w-[25rem] flex flex-col gap-3 border bg-white h-full md:h-fit lg:h-fit justify-center;
+		@apply p-5 rounded-lg w-full md:w-[25rem]  lg:w-[25rem] flex flex-col gap-3 border bg-white dark:bg-darkSecondary h-full md:h-fit lg:h-fit justify-center;
 	}
 	.form-input-container {
 		@apply flex flex-col gap-1
@@ -17,13 +20,7 @@
 	}
 
 	.form-input {
-		@apply border
-    rounded-sm
-    py-2
-    px-2
-    focus:outline-indigo-400 
-    text-sm
-    w-full;
+		@apply border bg-white dark:bg-darkPrimary rounded-sm py-2 px-2 focus:outline-indigo-400 text-sm w-full;
 	}
 	.form-required {
 		@apply text-red-500 ml-1 relative top-[3px];
@@ -35,37 +32,103 @@
 		@apply text-red-500 text-xs;
 	}
 	.login-btn {
-		@apply bg-primary w-full text-white py-2 rounded-sm hover:bg-secondary disabled:bg-[#82a3f4] disabled:cursor-not-allowed;
+		@apply bg-primary w-full py-2 rounded-sm hover:bg-secondary disabled:bg-[#82a3f4] disabled:cursor-not-allowed;
 	}
 	.custom-check-box input {
 		@apply absolute w-5 h-5 sr-only z-10;
 	}
 	.custom-check-box {
-		@apply bg-slate-100 w-5 h-5 rounded border   shadow  cursor-pointer;
+		@apply bg-slate-100 dark:bg-darkPrimary w-5 h-5 rounded border   shadow  cursor-pointer;
 	}
 	.custom-check-box span {
-		@apply absolute mt-1 after:absolute  after:pointer-events-none after:border-l-4 after:-rotate-45 after:border-b-4 after:rounded-sm after:w-4 after:h-2  after:content-[''];
+		@apply absolute bg-slate-100 dark:bg-darkPrimary   mt-1 after:absolute  after:pointer-events-none after:border-l-4 after:-rotate-45 after:border-b-4 after:rounded-sm after:w-4 after:h-2  after:content-[''];
 	}
-	.card-container {
-		@apply flex gap-1 flex-wrap justify-center;
+	.user-details-container
+	{
+		@apply w-10/12 sm:w-4/12  bg-white dark:bg-darkSecondary overflow-hidden flex flex-col gap-5 rounded-md shadow;
 	}
-	.card {
-		@apply bg-white p-3 shadow-sm  w-11/12 lg:w-96 rounded-md flex flex-col gap-3  border border-white hover:border-gray-400 hover:cursor-pointer;
+	.user-details-header
+	{
+		@apply relative bg-slate-200 dark:bg-slate-600 h-20 flex justify-center pt-4;
 	}
-	.card-title {
-		@apply text-base font-extrabold text-center uppercase flex justify-start gap-2 items-center;
+	.user-details-profile
+	{
+		@apply p-1 bg-white dark:bg-darkSecondary w-max rounded-full shadow absolute -bottom-9;
 	}
-	.card p {
-		@apply flex gap-2 w-full relative flex-wrap text-sm break-words justify-between border border-white border-b-slate-100;
+	.user-details
+	{
+		@apply p-6 flex flex-col gap-4; 
 	}
-	.card-email {
-		@apply text-blue-500;
+	.dashboard
+	{
+		@apply flex flex-col items-center gap-2;
 	}
-	.card-label {
-		@apply text-gray-500;
+	.dashboard-header
+	{
+		@apply w-11/12 p-3 flex items-center bg-white rounded dark:bg-darkSecondary justify-between;
+	}
+	.dashboard-header-title
+	{
+		@apply text-xl font-bold text-gray-500 dark:text-white; 
+	}
+	
+	.dashboard-search-container
+	{
+		@apply flex items-center shadow w-2/4 rounded relative overflow-hidden  bg-gray-100 dark:bg-darkPrimary;;
+	}
+	.dashboard-search-placeholder
+	{
+		@apply absolute flex items-center gap-3 text-lg font-thin pl-3 pointer-events-none text-gray-500 ;
+	}
+	.dashboard-search-input
+	{
+		@apply w-11/12 outline-none  p-2  bg-gray-100 dark:bg-darkPrimary;
+	}
+	.dashboard-search-btn
+	{
+		@apply w-1/12 py-2  bg-gray-100 dark:bg-darkPrimary text-2xl flex justify-center;
+	}
+	.dashboard-table-container
+	{
+		@apply flex flex-col w-11/12 gap-1 h-[70vh] overflow-auto;
+	}
+	.dashboard-footer
+	{
+		@apply w-11/12 p-3 flex items-center bg-white rounded dark:bg-darkSecondary justify-between;
+	}
+	.pagination-container
+	{
+		@apply flex gap-2;
+	}
+	.pagination-btn
+	{
+		@apply p-1 border border-gray-200 px-3 rounded hover:pagination-btn-active;
+	}
+	.pagination-btn-active
+	{
+		@apply border border-primary text-primary;
+	}
+	.row{
+		@apply grid grid-cols-6 rounded shadow-sm grid-flow-row gap-1 items-center bg-white dark:bg-darkSecondary w-full p-2;
+	}
+	.row-delete-btn
+	{
+		@apply flex items-center gap-1 text-red-500;
+	}
+	.row-email
+	{
+		@apply text-primary;
+	}
+	.admin
+	{
+      @apply text-yellow-500 text-center;
+	}
+	.user
+	{
+		@apply admin text-green-500;
 	}
 	.navbar {
-		@apply flex justify-between items-center shadow px-5 py-2 mb-2 bg-white;
+		@apply flex justify-between items-center shadow px-5 py-2 mb-2 bg-white dark:bg-darkSecondary;
 	}
 	.navbar-logo {
 		@apply flex items-center justify-center gap-2;
@@ -82,53 +145,101 @@
 	.navbar-link {
 		@apply text-gray-600;
 	}
-	.nav-items-hover
-	{
+	.nav-items-hover {
 		@apply hover:bg-slate-200 hover:cursor-pointer;
 	}
 	.loading-container {
 		@apply flex justify-center items-center w-full h-full absolute top-0 right-0 bg-slate-100 z-10;
 	}
-	.user-container
+	.nav-dark-mode-btn
 	{
-		@apply  px-4 py-2 border  shadow rounded-full flex gap-1 items-center nav-items-hover;
+		@apply bg-slate-100 dark:bg-darkPrimary p-3 rounded-full;
 	}
-    .icons
-	{
-		@apply text-2xl;
+	.nav-user {
+		@apply px-6 py-2 flex flex-col relative gap-1 items-center cursor-pointer;
 	}
-	.nav-button
+	.nav-user-name
 	{
-       @apply icons shadow text-primary p-2 border rounded-full bg-white nav-items-hover;
+		@apply flex items-center gap-1  ;
 	}
-	.createuser-container
+	.triangle
 	{
+		@apply absolute border-[0.8rem] border-transparent -top-3 left-1/3  border-t-0 border-b-white dark:border-b-darkSecondary w-0 h-0 content-[""];
+	}
+	.nav-dropdown
+	{
+		@apply before:triangle absolute top-16 rounded shadow-sm  bg-white dark:bg-darkSecondary w-full p-1  ;
+	}
+	.nav-dropdown-items
+	{
+		@apply flex px-2 py-1 w-full items-center justify-between hover:bg-slate-100 dark:hover:bg-darkPrimary;
+	}
+	.icons {
+		@apply text-xl;
+	}
+	.nav-button {
+		@apply cursor-pointer flex items-center gap-2 rounded bg-blue-500 shadow text-white p-2 border hover:bg-primary ;
+	}
+	.nav-link
+	{
+		@apply flex
+	}
+	.createuser-container {
 		@apply min-w-full min-h-[90vh] h-1 flex items-center justify-center;
 	}
-	.createuser-card
-	{
-		@apply bg-white min-h-full min-w-full rounded-md p-3 shadow flex flex-col gap-5; 
+	.createuser-card {
+		@apply bg-white dark:bg-darkSecondary min-h-full min-w-full rounded-md p-3 shadow flex flex-col gap-5;
 	}
-	.createuser-form
-	{
+	.createuser-form {
 		@apply flex flex-col gap-3 border border-gray-200 p-4 rounded-sm items-center;
 	}
-	.createuser-form-components
-	{
-		@apply flex flex-col sm:flex-row w-full sm:w-9/12 justify-between; 
+	.createuser-form-components {
+		@apply flex flex-col sm:flex-row w-full sm:w-9/12 justify-between;
 	}
-	.createuser-form-components .form-input-container
-	{
-		@apply w-full sm:w-[45%]
+	.createuser-form-components .form-input-container {
+		@apply w-full sm:w-[45%];
 	}
-	.card-header
-	{
+	.card-header {
 		@apply flex items-center justify-between h-[2rem];
 	}
-	.card-deletebtn
-	{
+	.card-deletebtn {
 		@apply text-red-400 text-xl hover:text-red-600;
 	}
-
+	.delete-modal-container
+	{
+		@apply bg-black bg-opacity-50  w-full h-full fixed top-0 left-0 flex items-center justify-center z-20;
+	}
+	.delete-modal
+	{
+		@apply  bg-white dark:bg-darkSecondary shadow-sm w-max rounded-lg p-3  flex flex-col justify-center items-center text-center gap-4;
+	}
+	.delete-modal-icon
+	{
+		@apply text-red-400 text-8xl;
+	}
+	.delete-modal-title
+	{
+		@apply text-xl font-extrabold;
+	}
+	.delete-modal-desc
+	{
+		@apply text-base font-extrabold text-gray-400 w-4/5;
+	}
+	.delete-modal-btn-container
+	{
+		@apply w-full flex justify-end items-center gap-5;
+	}
+	.delete-modal-btn
+	{
+		@apply py-1 px-4 flex items-center gap-1 rounded-md cursor-pointer;
+	}
+	.modal-cancel-btn
+	{
+		@apply  bg-slate-200 dark:bg-slate-700 hover:bg-slate-300; 
+	}
+	.modal-delete-btn
+	{
+		@apply bg-red-400 text-white hover:bg-red-600;
+	}
 }
 @tailwind utilities;

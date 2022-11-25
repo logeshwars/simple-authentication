@@ -19,7 +19,9 @@ export const MakeRequest = async (config, data) => {
 			response = await instance.get(`${ config.subDir }/${ config.query }`);
 		} else if (config.reqType === request.Post) {
 			if (config.query === request.Login) {
-				response = await instance.post(`${ config.subDir }/${ config.query }`, qs.stringify(data), { headers: { [request.ContentType]: request.XForm } });
+				response = await instance.post(`${ config.subDir }/${ config.query }`, qs.stringify(data), {
+					headers: { [request.ContentType]: request.XForm }
+				});
 			} else {
 				response = await instance.post(`${ config.subDir }/${ config.query }`, data);
 			}
@@ -31,23 +33,19 @@ export const MakeRequest = async (config, data) => {
 };
 
 const checkResponse = (res, config) => {
-	if (
-		res.status === config.code &&
-		res.data.message === config.msg
-	) {
-		if (config.resType===constants.request.Bool) {
+	if (res.status === config.code && res.data.message === config.msg) {
+		if (config.resType === constants.request.Bool) {
 			return [true, config.success];
 		} else if (config.resType === constants.request.Data) {
 			return res.data;
 		}
 	} else {
-		if (config.resType===constants.request.Bool) {
+		if (config.resType === constants.request.Bool) {
 			return [false, res.data.message];
 		} else if (config.resType === constants.request.Data) {
 			return [undefined, res.data.message];
 		}
 	}
-
 };
 
 /*

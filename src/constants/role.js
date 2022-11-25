@@ -1,4 +1,4 @@
-const role ={
+const role = {
 	RoleAdmin: 'admin',
 	RoleUser: 'user'
 };

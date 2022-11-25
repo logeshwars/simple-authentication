@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-const Inputs = (props) => (
-	<input {...props} className='form-input' />
-);
+const Inputs = (props) => <input {...props} className='form-input' />;
 Inputs.propTypes = {
 	onChange: PropTypes.func,
 	name: PropTypes.string,

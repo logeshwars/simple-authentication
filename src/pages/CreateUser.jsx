@@ -3,9 +3,7 @@ import { MakeRequest } from '../axios/';
 import Inputs from '../components/Inputs';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import {
-	LoadingContext, NotificationContext
-} from '../contexts/MainContext';
+import { LoadingContext, NotificationContext } from '../contexts/MainContext';
 import PasswordInput from '../components/PasswordInput';
 import constants from '../constants';
 import roles from '../constants/role';
@@ -17,10 +15,8 @@ import InputContianer from '../components/InputContianer';
 const CreateUser = () => {
 	const setLoading = useContext(LoadingContext);
 	const setNotification = useContext(NotificationContext);
-	const {
-		formConst, resConfig
-	} = constants;
-	validationSchema.role = yup.string("Select the Role").required('Role is required');
+	const { formConst, resConfig } = constants;
+	validationSchema.role = yup.string('Select the Role').required('Role is required');
 	const formik = useFormik({
 		initialValues: {
 			email: '',
@@ -50,7 +46,6 @@ const CreateUser = () => {
 				<h3 className='text-primary text-2xl font-bold'> Create user </h3>
 				<form className='createuser-form' onSubmit={formik.handleSubmit}>
 					<div className='createuser-form-components'>
-
 						<InputContianer
 							error={formik.errors.userName}
 							label='Name'
@@ -91,8 +86,7 @@ const CreateUser = () => {
 							label='Birth Date'
 							istouched={formik.touched.dob}
 							error={formik.errors.dob}
-							required={true}
-						>
+							required={true}>
 							<Inputs
 								onChange={formik.handleChange}
 								value={formik.values.dob}
@@ -109,9 +103,9 @@ const CreateUser = () => {
 							label='Role'
 							istouched={formik.touched.role}
 							error={formik.errors.role}
-							required={true}
-						>
-							<SelectInput onChange={formik.handleChange}
+							required={true}>
+							<SelectInput
+								onChange={formik.handleChange}
 								value={formik.values.role}
 								name='role'
 								placeholder='Select the Role'
@@ -126,8 +120,7 @@ const CreateUser = () => {
 							label='Password'
 							istouched={formik.touched.password}
 							error={formik.errors.password}
-							required={true}
-						>
+							required={true}>
 							<PasswordInput
 								onChange={formik.handleChange}
 								name='password'
@@ -143,8 +136,7 @@ const CreateUser = () => {
 							label='Confirm password'
 							istouched={formik.touched.confirmPassword}
 							error={formik.errors.confirmPassword}
-							required={true}
-						>
+							required={true}>
 							<PasswordInput
 								onChange={formik.handleChange}
 								name='confirmPassword'
@@ -158,7 +150,7 @@ const CreateUser = () => {
 						</InputContianer>
 					</div>
 					<div className='createuser-form-components w-full sm:w-1/4'>
-						<FormButton isValid={formik.isValid} dirty={formik.dirty} text={'Create User'}/>
+						<FormButton isValid={formik.isValid} dirty={formik.dirty} text={'Create User'} />
 					</div>
 				</form>
 			</div>

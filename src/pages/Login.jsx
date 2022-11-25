@@ -1,17 +1,11 @@
-import React, {
-	useContext, useEffect, useState
-} from 'react';
-import {
-	Link, useNavigate
-} from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 import Inputs from '../components/Inputs';
-import {
-	AuthContext, NotificationContext
-} from '../contexts/MainContext';
+import { AuthContext, NotificationContext } from '../contexts/MainContext';
 import lottieLogin from '../lottiefiles/login.json';
 import PasswordInput from '../components/PasswordInput';
 import constants from '../constants';
@@ -45,7 +39,7 @@ const Login = () => {
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			MakeRequest(constants.resConfig.Login, values).then(([log, msg]) => {
+			MakeRequest(constants.resConfig.Login, {keepLogged: keepLogged, ...values}).then(([log, msg]) => {
 				setLogged(log);
 				setNotification(msg);
 			});
@@ -94,8 +88,7 @@ const Login = () => {
 						label='Password'
 						istouched={formik.touched.password}
 						error={formik.errors.password}
-						required={true}
-					>
+						required={true}>
 						<PasswordInput
 							onChange={formik.handleChange}
 							name='password'
@@ -115,12 +108,12 @@ const Login = () => {
 							</label>
 							<label className='text-gray-500 text-sm'>keep me logged in</label>
 						</div>
-						<Link to='*' className='text-primary'>
+						<Link to={constants.path.ForgotPassword} className='text-primary'>
 							Forget password!
 						</Link>
 					</div>
 
-					<FormButton isValid={formik.isValid} dirty={formik.dirty} text={'Sign In'}/>
+					<FormButton isValid={formik.isValid} dirty={formik.dirty} text={'Sign In'} />
 				</form>
 				<div className='text-center text-base text-gray-400 '>
 					Don&apos;t have an account?

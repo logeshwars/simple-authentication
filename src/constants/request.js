@@ -5,17 +5,18 @@ const request = {
 	Token: 'token',
 	User: 'user',
 	DeleteUser: 'deleteuser',
+	UserFullDetails: 'getcurrentuserdetails',
 	Limit: '_limit',
 	Page: '_page',
 	ContentType: 'content-type',
 	XForm: 'application/x-www-form-urlencoded',
 	AccessControlAllowCredentials: 'Access-Control-Allow-Credentials',
-	DefaultPageLimit: 6,
+	DefaultPageLimit: 8,
 	DefaultPage: 0,
 	Get: 'get',
 	Post: 'post',
 	GetUser: 'getuser',
-	Bool: "bool",
-	Data: "data"
+	Bool: 'bool',
+	Data: 'data'
 };
 export default request;

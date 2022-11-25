@@ -1,42 +1,27 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { BiUserMinus } from 'react-icons/bi';
 import PropTypes from 'prop-types';
 import formatDate from '../utils/formatDate';
-import constants from '../constants';
-import {
-	NotificationContext, UserContext
-} from '../contexts/MainContext';
-import { MakeRequest } from '../axios';
-const Card = ({
-	data, refer, refetch
-}) => {
-	const [user] = useContext(UserContext);
-	const setNotification = useContext(NotificationContext);
-	const handleDelete = () => {
-		MakeRequest(constants.resConfig.Delete, { userid: data.id }).then(([res, msg]) => {
-			if (res) {
-				refetch();
-			}
-			setNotification(msg);
-		});
-	};
+import DeleteModal from './DeleteModal';
+import useToggle from '../hooks/useToggle';
+const Card = ({ data, refer, refetch }) => {
+	const [modal, toggleModal] = useToggle(false);
 	return (
-		<div className='card' ref={refer}>
-			<div className='card-header'>
-				<h1 className='card-title'>
-					<FaUserCircle className='text-blue-400 text-xl' />
-					{data.userName}
-				</h1>
-				{
-					user?.role === constants.role.RoleAdmin &&
-			<button onClick={handleDelete} className='card-deletebtn'><BiUserMinus/></button>
-				}
-			</div>
-			<Label label='ID' value={data.id} />
-			<Label label='EMAIL' value={data.email} />
-			<Label label='DATE OF BIRTH' value={formatDate(data.dob)} />
-			<Label label='ROLE' value={data.role}/>
+		<div className='row' ref={refer}>
+			<h1 className='card-title'>
+				<FaUserCircle className='text-blue-400 text-xl' />
+				{data.userName}
+			</h1>
+			<Label value={data.id} />
+			<Label className='row-email' value={data.email} />
+			<Label value={formatDate(data.dob)} />
+			<Label className={data.role} value={data.role} />
+			<button onClick={toggleModal} className='row-delete-btn'>
+				<BiUserMinus />
+				<span>Remove</span>
+			</button>
+			{modal && <DeleteModal toggleModal={toggleModal} userId={data.id} refetch={refetch}/>}
 		</div>
 	);
 };
@@ -52,17 +37,12 @@ Card.propTypes = {
 	refetch: PropTypes.func
 };
 
-const Label = ({
-	label, value
-}) => (
-	<p>
-		<span className='card-label'>{label}</span>
-		<span className={label === 'Email' ? 'card-email' : undefined}>{value}</span>
-	</p>
+const Label = ({value, className}) => (
+	<span className={className}>{value}</span>
 );
 
 Label.propTypes = {
-	label: PropTypes.string,
-	value: PropTypes.string
+	value: PropTypes.string,
+	className: PropTypes.string
 };
 export default Card;

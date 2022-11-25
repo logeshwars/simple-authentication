@@ -98,8 +98,6 @@
 		"no-whitespace-before-property": "error",
 		"func-style": 2,
 		"nonblock-statement-body-position": 2,
-		"object-curly-newline": ["error", { "minProperties": 2 }],
-		"object-curly-spacing": ["error", "always"],
 		"arrow-body-style": 2,
 		"arrow-parens": 2,
 		"default-param-last": 2,

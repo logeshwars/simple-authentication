@@ -1,10 +1,15 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 const SelectInput = (props) => (
-	<select className='form-input' defaultValue={props.placeholder} name={props.name} onChange={props.onChange} onBlur={props.onBlur}>
-		{props.options.map((option) => (<option key={option}>
-			{option}
-		</option>))}
+	<select
+		className='form-input'
+		defaultValue={props.placeholder}
+		name={props.name}
+		onChange={props.onChange}
+		onBlur={props.onBlur}>
+		{props.options.map((option) => (
+			<option key={option}>{option}</option>
+		))}
 	</select>
 );
 

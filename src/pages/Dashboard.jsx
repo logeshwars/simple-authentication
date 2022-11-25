@@ -1,6 +1,4 @@
-import React, {
-	useCallback, useContext, useRef
-} from 'react';
+import React, { useCallback, useContext, useRef } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { MakeRequest } from '../axios';
 import Card from '../components/Card';
@@ -12,9 +10,7 @@ const Dashboard = () => {
 	const { 2: getToken } = useContext(AuthContext);
 	const pageInc = 1;
 	const firstIndex = 0;
-	const {
-		data, isError, isLoading, fetchNextPage, hasNextPage, error, refetch
-	} = useInfiniteQuery(
+	const { data, isError, isLoading, fetchNextPage, hasNextPage, error, refetch } = useInfiniteQuery(
 		['users'],
 		({ pageParam = request.DefaultPage }) => {
 			const config = constants.resConfig.User;
@@ -32,32 +28,41 @@ const Dashboard = () => {
 		}
 	}
 	const observer = useRef();
-	const lastElementRef = useCallback((node) => {
-		if (isLoading) {
-			return;
-		}
-		if (observer.current) {
-			observer.current.disconnect();
-		}
-		observer.current = new IntersectionObserver((entries) => {
-			if (entries[firstIndex].isIntersecting && hasNextPage) {
-				fetchNextPage();
+	const lastElementRef = useCallback(
+		(node) => {
+			if (isLoading) {
+				return;
 			}
-		});
-		if (node) {
-			observer.current.observe(node);
-		}
-	}, [isLoading, hasNextPage, fetchNextPage]);
+			if (observer.current) {
+				observer.current.disconnect();
+			}
+			observer.current = new IntersectionObserver((entries) => {
+				if (entries[firstIndex].isIntersecting && hasNextPage) {
+					fetchNextPage();
+				}
+			});
+			if (node) {
+				observer.current.observe(node);
+			}
+		},
+		[isLoading, hasNextPage, fetchNextPage]
+	);
 	return (
 		<div className='dashboard'>
-			{(!isLoading && !isError) && (
+			{!isLoading && !isError && (
 				<div className='card-container'>
 					{data.pages.map((page, pageIndex) => page.data.map((user, index) => (
 						<>
-							{(data.pages.length === pageIndex + pageInc &&
+							{data.pages.length === pageIndex + pageInc &&
 								page.data.length === index + pageInc &&
-								data.pages.length + pageInc < page.last_page) ? (
-									<Card refetch={refetch} refer={lastElementRef} values={page} data={user} key={index} />
+								data.pages.length + pageInc < page.last_page ? (
+									<Card
+										refetch={refetch}
+										refer={lastElementRef}
+										values={page}
+										data={user}
+										key={index}
+									/>
 								) : (
 									<Card refetch={refetch} data={user} refer={null} key={index} />
 								)}
