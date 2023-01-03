@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import formatDate from '../utils/formatDate';
 import DeleteModal from './DeleteModal';
 import useToggle from '../hooks/useToggle';
-const Card = ({ data, refer, refetch }) => {
+const Row = ({ data, refer, refetch }) => {
 	const [modal, toggleModal] = useToggle(false);
 	return (
 		<div className='row' ref={refer}>
@@ -25,7 +25,7 @@ const Card = ({ data, refer, refetch }) => {
 		</div>
 	);
 };
-Card.propTypes = {
+Row.propTypes = {
 	data: {
 		userName: PropTypes.string,
 		id: PropTypes.string,
@@ -45,4 +45,4 @@ Label.propTypes = {
 	value: PropTypes.string,
 	className: PropTypes.string
 };
-export default Card;
+export default Row;

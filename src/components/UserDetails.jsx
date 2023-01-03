@@ -43,8 +43,8 @@ const UserDetails = () => {
 	);
 };
 const Label = ({ label, value, icon }) => (
-	<p className='card-desc'>
-		<span className='card-label'>{icon} {label}</span>
+	<p className='user-details-desc'>
+		<span className='user-details-label'>{icon} {label}</span>
 		<span className={label === 'Email' ? 'card-email' : undefined}>{value}</span>
 	</p>
 );

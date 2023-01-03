@@ -2,7 +2,7 @@
 @tailwind base;
 @tailwind components;
 @layer components {
-	.app{
+	body{
 		@apply dark:bg-darkPrimary dark:text-white
 	}
 	.center-elm {
@@ -59,6 +59,14 @@
 	{
 		@apply p-6 flex flex-col gap-4; 
 	}
+	.user-details-desc
+	{
+		@apply flex items-center justify-between
+	}
+	.user-details-label
+	{
+		@apply flex text-gray-500 items-center gap-2
+	}
 	.dashboard
 	{
 		@apply flex flex-col items-center gap-2;
@@ -95,6 +103,14 @@
 	.dashboard-footer
 	{
 		@apply w-11/12 p-3 flex items-center bg-white rounded dark:bg-darkSecondary justify-between;
+	}
+	.dashboard-footer-data-limit
+	{
+		@apply flex items-center gap-2;
+	}
+	.dashboard-footer-data-limit-select
+	{
+		@apply bg-slate-100 dark:bg-darkPrimary text-primary p-1 rounded outline-none;
 	}
 	.pagination-container
 	{

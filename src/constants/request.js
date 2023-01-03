@@ -11,7 +11,7 @@ const request = {
 	ContentType: 'content-type',
 	XForm: 'application/x-www-form-urlencoded',
 	AccessControlAllowCredentials: 'Access-Control-Allow-Credentials',
-	DefaultPageLimit: 8,
+	DefaultPageLimit: 10,
 	DefaultPage: 0,
 	Get: 'get',
 	Post: 'post',

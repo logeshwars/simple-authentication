@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { MakeRequest } from '../axios';
-import Card from '../components/Card';
+import Row from '../components/Row';
 import constants from '../constants';
 import { AuthContext } from '../contexts/MainContext';
 import { TiUserAdd } from 'react-icons/ti';
@@ -16,6 +16,7 @@ const Dashboard = () => {
 	const navigate = useNavigate();
 	const { 2: getToken } = useContext(AuthContext);
 	const [search, setSearch] = useState('');
+	const [filteredItems, setFilteredItems] = useState([]);
 	const { path, request } = constants;
 	const [currentPage, setCurrentPage] = useState(request.DefaultPage);
 	const [pageLimit, setPageLimit] = useState(request.DefaultPageLimit);
@@ -25,11 +26,16 @@ const Dashboard = () => {
 			const config = constants.resConfig.User;
 			config.query = `?${ request.Limit }=${ pageLimit }&${ request.Page }=${ currentPage }`;
 			return MakeRequest(config);
-		}
+		}, [pageLimit, currentPage]
 	);
+	useEffect(() => {
+		setFilteredItems(() => data?.data?.filter((user) => user.userName.toLowerCase().includes(search.toLowerCase())));
+	}, [search, data]);
+
 	if (isError) {
 		if (error.response.status === constants.code.Unauthorized) {
 			getToken();
+			refetch();
 		}
 	}
 	const handlePageChange=(page) => {
@@ -40,15 +46,14 @@ const Dashboard = () => {
 	const handlePageLimitChange = (limit) => {
 		setPageLimit(limit);
 		refetch();
-		setCurrentPage();
 	};
 
 
 	const Footer = () => (
 		<div className='dashboard-footer'>
-			<div>
-				<label>Users per page</label>
-				<select onChange={(event) => handlePageLimitChange(event.target.value)}>
+			<div className='dashboard-footer-data-limit'>
+				<label>per page</label>
+				<select className='dashboard-footer-data-limit-select' onChange={(event) => handlePageLimitChange(event.target.value)}>
 					{createArray(10, 10).map((elm) => (
 						<option key={elm}>{elm}</option>
 					))}
@@ -72,6 +77,8 @@ const Dashboard = () => {
 		className: PropTypes.string,
 		handlePageChange: PropTypes.func
 	};
+
+
 	return (
 		<div className='dashboard'>
 			<div className='dashboard-header'>
@@ -90,7 +97,7 @@ const Dashboard = () => {
 						type='text'
 					/>
 					{search && (
-						<button className='dashboard-search-btn'>
+						<button className='dashboard-search-btn' onClick={() => setSearch('')}>
 							<IoClose />
 						</button>
 					)}
@@ -102,9 +109,12 @@ const Dashboard = () => {
 			</div>
 			{!isLoading && !isError && (
 				<div className='dashboard-table-container'>
-					{data.data.map((user, index) => (
-						<Card refetch={refetch} data={user} key={index} />
-					))}
+					{!search ? data.data.map((user, index) => (
+						<Row refetch={refetch} data={user} key={index} />
+					)) :filteredItems.map((user, index) => (
+						<Row refetch={refetch} data={user} key={index} />
+					))
+					}
 				</div>
 			)}
 			<Footer />
